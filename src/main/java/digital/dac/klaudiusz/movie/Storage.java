@@ -7,8 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.*;
 
 import static digital.dac.klaudiusz.movie.Information.formatSize;
@@ -23,7 +21,7 @@ class Storage {
     public void put(String name, MultipartFile file) throws IOException {
         var length = (int) file.getSize();
         var byteBuffer = ByteBuffer.allocateDirect(length);
-        try (var channel = Channels.newChannel(file.getInputStream())) {
+        try (var channel = file.getResource().readableChannel()) {
             IOUtils.readFully(channel, byteBuffer);
         }
         byteBuffer.position(0);
