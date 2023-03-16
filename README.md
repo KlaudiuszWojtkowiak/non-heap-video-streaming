@@ -1,6 +1,7 @@
 # non-heap-video-streaming
 Non Heap memory used as a storage for video streaming.
-This program has been created as my input to the DAC.digital technological blog: https://dac.digital/blog/
+This program has been created as my input to the DAC.digital technological blog: 
+https://dac.digital/netflix-on-java-a-non-heap-application-for-video-streaming/
 
 #How to run?
 A few ways:
