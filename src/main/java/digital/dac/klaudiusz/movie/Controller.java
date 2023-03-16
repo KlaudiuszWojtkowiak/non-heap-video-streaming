@@ -26,9 +26,7 @@ class Controller {
     @PostMapping()
     String saveMovie(@RequestParam("file") MultipartFile file, @RequestParam("name") String name) throws IOException {
         //by default this way of reading a MultipartFile is limited by int size. If case of very large files, tou may face "Required array length is too large" error
-        storage.put(name, file.getBytes());
-        //Heap memory can be allocated during the movie upload. Let's ask for the clean, just to show the real Heap memory usage.
-        System.gc();
+        storage.put(name, file);
         log.info(Information.getMemoryInformation(storage.getTotalNoHeapMemoryUsage()));
         return "Video saved successfully.";
     }

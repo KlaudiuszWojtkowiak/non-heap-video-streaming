@@ -2,8 +2,12 @@ package digital.dac.klaudiusz.movie;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.util.*;
 
 import static digital.dac.klaudiusz.movie.Information.formatSize;
@@ -23,6 +27,16 @@ class Storage {
 
         movieLibrary.put(name, new Movie(byteBuffer, length));
         log.info(format("Added a new movie '%s' with size %s", name, formatSize(length)));
+    }
+
+    public void put(String name, MultipartFile file) throws IOException {
+        var size = (int) file.getSize();
+        var byteBuffer = ByteBuffer.allocateDirect(size);
+        try (ReadableByteChannel channel = Channels.newChannel(file.getInputStream())) {
+            channel.read(byteBuffer);
+        }
+        byteBuffer.position(0);
+        movieLibrary.put(name, new Movie(byteBuffer, size));
     }
 
     public Optional<Movie> pull(String name) {
