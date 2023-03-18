@@ -19,3 +19,6 @@ For the testing purposes there is System.gc() used after each upload.
 
 #Author
 klaudiusz.wojtkowiak@gmail.com
+
+The ByteBufferBackedInputStream class taken from:
+https://stackoverflow.com/questions/4332264/wrapping-a-bytebuffer-with-an-inputstream/34173251#34173251
